@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import ExpneseItem from './ExpenseItem';
+import ExpenseList from './ExpenseList';
 import ExpensesFilter from './ExpensesFilter';
 import './Expenses.css';
 
@@ -8,15 +8,16 @@ function Expenses(props){
 
     const selectFilterHandler = (selectYear) =>{
         setFilter(selectYear);
-        console.log("selectFilter::",selectFilter);
     }
+
+    const filteredExpenses = props.item.filter((expense)=>{
+        return expense.date.getFullYear().toString() === selectFilter
+    })
 
     return(
         <div className='expenses'>
             <ExpensesFilter selected={selectFilter} onSelectFilter={selectFilterHandler}/>
-            <ExpneseItem title={props.item[0].title} amount={props.item[0].amount} date={props.item[0].date}></ExpneseItem>
-            <ExpneseItem title={props.item[1].title} amount={props.item[1].amount} date={props.item[1].date}></ExpneseItem>
-            <ExpneseItem title={props.item[2].title} amount={props.item[2].amount} date={props.item[2].date}></ExpneseItem>
+            <ExpenseList items ={filteredExpenses}/>
         </div>
     )
 }
